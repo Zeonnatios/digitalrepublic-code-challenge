@@ -1,27 +1,27 @@
 module.exports = (sequelize, DataTypes) => {
   const TransferHistory = sequelize.define(
-    "TransferHistory",
+    'TransferHistory',
     {
       operation: DataTypes.STRING(10),
       amount: DataTypes.DECIMAL(9, 2),
     },
     {
       timestamps: false,
-      tableName: "transfersHistory",
+      tableName: 'transfersHistory',
       underscored: true,
-    }
+    },
   );
 
   TransferHistory.associate = (models) => {
     models.Sale.belongsToMany(models.User, {
-      as: "senderAccount",
+      as: 'senderAccount',
       through: TransferHistory,
-      foreignKey: "senderAccount",
+      foreignKey: 'senderAccount',
     });
     models.Product.belongsToMany(models.User, {
-      as: "receiverAccount",
+      as: 'receiverAccount',
       through: TransferHistory,
-      foreignKey: "receiverAccount",
+      foreignKey: 'receiverAccount',
     });
   };
 
