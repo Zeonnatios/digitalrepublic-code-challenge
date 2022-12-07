@@ -6,7 +6,7 @@ const { User } = require('../database/models');
 const generateToken = require('../helpers/generateToken');
 
 const findUserByEmail = async (email) => {
-  const user = await User.findOne({ where: { email }, raw: true });
+  const user = await User.findOne({ where: { email } });
   return user;
 };
 
@@ -49,7 +49,13 @@ const registerAuthenticator = async (name, cpf, email, password) => {
   return token;
 };
 
+const findAllUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  return users;
+};
+
 module.exports = {
   loginAuthenticator,
   registerAuthenticator,
+  findAllUsers,
 };

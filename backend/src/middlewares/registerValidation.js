@@ -2,7 +2,7 @@ const Joi = require('joi');
 const { StatusCodes } = require('http-status-codes');
 
 const MIN_PASSWORD_LENGTH = 8;
-const CPF_LENGTH = 9;
+const CPF_LENGTH = 11;
 
 const validator = (name, cpf, email, password) => {
   const { error } = Joi.object({

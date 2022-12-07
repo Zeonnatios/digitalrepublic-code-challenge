@@ -9,7 +9,7 @@ const login = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({ token: data });
   } catch (err) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
   }
 };
 
@@ -22,8 +22,17 @@ const register = async (req, res, next) => {
 
     return res.status(StatusCodes.CREATED).json({ token: data });
   } catch (err) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
   }
 };
 
-module.exports = { login, register };
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await service.findAllUsers();
+    return res.status(StatusCodes.OK).json({ users });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+  }
+};
+
+module.exports = { login, register, getAllUsers };
