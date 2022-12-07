@@ -1,7 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
-const service = require('../services/loginService');
+const service = require('../services/userService');
 
-// eslint-disable-next-line consistent-return
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
