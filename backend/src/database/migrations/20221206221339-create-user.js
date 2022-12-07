@@ -8,13 +8,22 @@ module.exports = {
         allowNull: false,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       cpf: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(11),
         allowNull: false,
         unique: true,
+      },
+      email: {
+        type: Sequelize.STRING(50),
+        unique: true,
+        allowNull: false,
+      },
+      password: {
+        type: Sequelize.STRING(32),
+        allowNull: false,
       },
     });
   },
