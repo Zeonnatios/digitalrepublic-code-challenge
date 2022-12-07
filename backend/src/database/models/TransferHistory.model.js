@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   TransferHistory.associate = (models) => {
-    models.Sale.belongsToMany(models.User, {
+    models.User.belongsToMany(models.User, {
       as: 'senderAccount',
       through: TransferHistory,
       foreignKey: 'senderAccount',
     });
-    models.Product.belongsToMany(models.User, {
+    models.User.belongsToMany(models.User, {
       as: 'receiverAccount',
       through: TransferHistory,
       foreignKey: 'receiverAccount',
