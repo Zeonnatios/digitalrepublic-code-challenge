@@ -25,10 +25,10 @@ module.exports = {
         onDelete: 'CASCADE',
         // primaryKey: true,
       },
-      operation: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
+      // operation: {
+      //   type: Sequelize.STRING,
+      //   allowNull: false,
+      // },
       amount: {
         type: Sequelize.DECIMAL(9, 2),
         allowNull: false,

@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const TransferHistory = sequelize.define(
     'TransferHistory',
     {
-      operation: DataTypes.STRING(10),
+      // operation: DataTypes.STRING(10),
       amount: DataTypes.DECIMAL(9, 2),
     },
     {
