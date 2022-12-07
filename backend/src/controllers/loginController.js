@@ -8,7 +8,7 @@ const login = async (req, res, next) => {
     const data = await service.loginAuthenticator(email, password);
     if (data.error) return next(data);
 
-    return res.status(200).json({ token: data });
+    return res.status(StatusCodes.OK).json({ token: data });
   } catch (err) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
   }

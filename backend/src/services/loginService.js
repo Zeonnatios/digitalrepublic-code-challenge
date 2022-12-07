@@ -17,6 +17,7 @@ const loginAuthenticator = async (email, password) => {
   }
 
   const encryptedPassword = md5(password);
+  console.log(encryptedPassword);
   if (user.password !== encryptedPassword) {
     return { error: true, status: StatusCodes.UNAUTHORIZED, message: 'Email or password incorrect!' };
   }
