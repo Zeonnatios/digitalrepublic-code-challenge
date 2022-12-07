@@ -21,7 +21,7 @@ const loginValidation = (req, _res, next) => {
   if (isNotValid) {
     return next({
       status: StatusCodes.UNAUTHORIZED,
-      message: 'Invalid data, try again!',
+      message: isNotValid.message,
     });
   }
   return next();

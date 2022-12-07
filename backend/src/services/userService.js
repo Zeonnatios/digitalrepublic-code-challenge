@@ -10,6 +10,11 @@ const findUserByEmail = async (email) => {
   return user;
 };
 
+const findUserByCpf = async (cpf) => {
+  const user = await User.findOne({ where: { cpf }, raw: true });
+  return user;
+};
+
 const loginAuthenticator = async (email, password) => {
   const user = await findUserByEmail(email);
   if (!user) {
@@ -17,7 +22,6 @@ const loginAuthenticator = async (email, password) => {
   }
 
   const encryptedPassword = md5(password);
-  console.log(encryptedPassword);
   if (user.password !== encryptedPassword) {
     return { error: true, status: StatusCodes.UNAUTHORIZED, message: 'Email or password incorrect!' };
   }
@@ -29,6 +33,23 @@ const loginAuthenticator = async (email, password) => {
   return token;
 };
 
+const registerAuthenticator = async (name, cpf, email, password) => {
+  const userbyEmail = await findUserByEmail(email);
+  const userByCpf = await findUserByCpf(cpf);
+
+  if (userbyEmail || userByCpf) {
+    return { error: true, message: 'User already exists!', status: StatusCodes.CONFLICT };
+  }
+
+  const newUserObjectFormatted = { name, cpf, email, password: md5(password) };
+  const userCreated = await User.create(newUserObjectFormatted);
+
+  const payload = { id: userCreated.id, name, cpf, email };
+  const token = await generateToken(payload);
+  return token;
+};
+
 module.exports = {
   loginAuthenticator,
+  registerAuthenticator,
 };
