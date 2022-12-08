@@ -1,10 +1,12 @@
 const Joi = require('joi');
 const { StatusCodes } = require('http-status-codes');
 
+const MIN_AMOUNT = 0;
+
 const validator = (amount) => {
   const { error } = Joi.object({
     amount: Joi.number()
-      .min(0)
+      .min(MIN_AMOUNT)
       .required(),
   }).validate({ amount });
   return error;

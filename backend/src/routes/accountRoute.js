@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { validateToken } = require('../middlewares');
+const { validateToken, accountValidation } = require('../middlewares');
 const { getAllAccounts, getAccountById, deposit, withdraw } = require('../controllers/accountController');
 
 router.use(validateToken);
@@ -8,7 +8,7 @@ router.use(validateToken);
 router.get('/accounts', [getAllAccounts]);
 router.get('/account/:id', [getAccountById]);
 router.get('/account/:id', [getAccountById]);
-router.patch('/account/deposit/:id', [deposit]);
-router.patch('/account/withdraw/:id', [withdraw]);
+router.patch('/account/deposit/:id', [accountValidation, deposit]);
+router.patch('/account/withdraw/:id', [accountValidation, withdraw]);
 
 module.exports = router;
