@@ -70,7 +70,7 @@ const registerAuthenticator = async (name, cpf, email, password) => {
     return token;
   } catch (err) {
     await transaction.rollback();
-    return { error: true, message: 'Error when trying to register user!', status: StatusCodes.INTERNAL_SERVER_ERROR };
+    return { error: true, message: 'Error when trying to register user!', status: StatusCodes.BAD_REQUEST };
   }
 };
 
