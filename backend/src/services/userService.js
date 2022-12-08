@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const md5 = require('md5');
-const { User, Account } = require('../database/models');
+const { User, Account, sequelize } = require('../database/models');
 const generateToken = require('../helpers/generateToken');
 const { createAccount } = require('./accountService');
 
@@ -56,16 +56,22 @@ const registerAuthenticator = async (name, cpf, email, password) => {
     return { error: true, message: 'User already exists!', status: StatusCodes.CONFLICT };
   }
 
-  const newUserObjectFormatted = { name, cpf, email, password: md5(password) };
-  const userCreated = await User.create(newUserObjectFormatted);
+  const transaction = await sequelize.transaction();
+  try {
+    const user = { name, cpf, email, password: md5(password) };
+    const userCreated = await User.create(user, transaction);
 
-  const userId = userCreated.id;
-  // eslint-disable-next-line no-unused-vars
-  const accountCreated = await createAccount(0, userId);
-
-  const payload = await getUserById(userId);
-  const token = await generateToken(payload.dataValues);
-  return token;
+    const userId = userCreated.id;
+    // eslint-disable-next-line no-unused-vars
+    await createAccount(0, userId);
+    await transaction.commit();
+    const payload = await getUserById(userId);
+    const token = await generateToken(payload.dataValues);
+    return token;
+  } catch (error) {
+    await transaction.rollback();
+    return { error: true, message: 'Error when trying to register user!', status: StatusCodes.INTERNAL_SERVER_ERROR };
+  }
 };
 
 module.exports = {

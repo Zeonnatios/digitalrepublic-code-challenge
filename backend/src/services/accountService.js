@@ -7,10 +7,10 @@ const findAllAccounts = async () => {
   return accounts;
 };
 
-const createAccount = async (amount, userId) => {
+const createAccount = async (amount, userId, transaction) => {
   const accountNumber = numberGenerator();
-  const newAccountObjectFormatted = { accountNumber, amount, userId };
-  const accountCreated = await Account.create(newAccountObjectFormatted);
+  const account = { accountNumber, amount, userId };
+  const accountCreated = await Account.create(account, transaction);
 
   return accountCreated;
 };
