@@ -4,6 +4,7 @@ const { StatusCodes } = require('http-status-codes');
 const validator = (amount) => {
   const { error } = Joi.object({
     amount: Joi.number()
+      .min(0)
       .required(),
   }).validate({ amount });
   return error;

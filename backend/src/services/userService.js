@@ -1,7 +1,13 @@
 const { StatusCodes } = require('http-status-codes');
 const md5 = require('md5');
-const { User } = require('../database/models');
+const { User, Account } = require('../database/models');
 const generateToken = require('../helpers/generateToken');
+const { createAccount } = require('./accountService');
+
+const findAllUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  return users;
+};
 
 const findUserByEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
@@ -10,6 +16,19 @@ const findUserByEmail = async (email) => {
 
 const findUserByCpf = async (cpf) => {
   const user = await User.findOne({ where: { cpf }, raw: true });
+  return user;
+};
+
+const getUserById = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+    include: [
+      { model: Account, as: 'account' },
+    ],
+    attributes: { exclude: ['password'] },
+    skipLocked: true,
+    lock: true,
+  });
   return user;
 };
 
@@ -24,10 +43,8 @@ const loginAuthenticator = async (email, password) => {
     return { error: true, status: StatusCodes.UNAUTHORIZED, message: 'Email or password incorrect!' };
   }
 
-  const payload = {
-    id: user.id, name: user.name, email, cpf: user.cpf,
-  };
-  const token = await generateToken(payload);
+  const payload = await getUserById(user.id);
+  const token = await generateToken(payload.dataValues);
   return token;
 };
 
@@ -42,14 +59,13 @@ const registerAuthenticator = async (name, cpf, email, password) => {
   const newUserObjectFormatted = { name, cpf, email, password: md5(password) };
   const userCreated = await User.create(newUserObjectFormatted);
 
-  const payload = { id: userCreated.id, name, cpf, email };
-  const token = await generateToken(payload);
-  return token;
-};
+  const userId = userCreated.id;
+  // eslint-disable-next-line no-unused-vars
+  const accountCreated = await createAccount(0, userId);
 
-const findAllUsers = async () => {
-  const users = await User.findAll({ attributes: { exclude: ['password'] } });
-  return users;
+  const payload = await getUserById(userId);
+  const token = await generateToken(payload.dataValues);
+  return token;
 };
 
 module.exports = {

@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const { createAccount } = require('../controllers/accountController');
-const { accountValidation, validateToken } = require('../middlewares');
+const { validateToken } = require('../middlewares');
+// const {  } = require('../controllers/accountController');
 
 router.use(validateToken);
 
-router.post('/user/account/', [accountValidation, createAccount]);
+// router.post('/user/account/', [accountValidation, createAccount]);
 
 module.exports = router;
