@@ -33,4 +33,28 @@ const getAccountById = async (req, res) => {
   }
 };
 
-module.exports = { createAccount, getAllAccounts, getAccountById };
+const deposit = async (req, res, next) => {
+  try {
+    const { id: userId } = req.authenticatedUser;
+    const { amount } = req.body;
+    const data = await service.deposit(userId, amount);
+    if (data.error) return next(data);
+    return res.status(StatusCodes.OK).json({ data, message: 'Deposit operation completed successfully!' });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+  }
+};
+
+const withdraw = async (req, res, next) => {
+  try {
+    const { id: userId } = req.authenticatedUser;
+    const { amount } = req.body;
+    const data = await service.withdraw(userId, amount);
+    if (data.error) return next(data);
+    return res.status(StatusCodes.OK).json({ account: data, message: 'Withdraw operation completed successfully!' });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+  }
+};
+
+module.exports = { createAccount, getAllAccounts, getAccountById, deposit, withdraw };

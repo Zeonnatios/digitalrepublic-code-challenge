@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const { numberGenerator } = require('../helpers/accountNumberGenerator');
-const { Account } = require('../database/models');
+const { Account, sequelize } = require('../database/models');
 
 const findAllAccounts = async () => {
   const accounts = await Account.findAll();
@@ -20,4 +20,25 @@ const createAccount = async (amount, userId, transaction) => {
   return accountCreated;
 };
 
-module.exports = { createAccount, findAllAccounts, findAccountByUserId };
+const deposit = async (userId, value) => {
+  const transaction = await sequelize.transaction();
+  const accountByUserId = await findAccountByUserId(userId);
+  const amount = Number(accountByUserId.dataValues.amount) + value;
+  await Account.update({ amount }, { where: { userId } });
+  const account = await findAccountByUserId(userId);
+  return account;
+};
+
+const withdraw = async (userId, value) => {
+  const accountByUserId = await findAccountByUserId(userId);
+  const amount = Number(accountByUserId.dataValues.amount) - value;
+  if (amount < 0) {
+    return { error: true, message: 'User already exists!', status: StatusCodes.CONFLICT };
+  }
+
+  await Account.update({ amount }, { where: { userId } });
+  const account = await findAccountByUserId(userId);
+  return account;
+};
+
+module.exports = { createAccount, findAllAccounts, findAccountByUserId, deposit, withdraw };
