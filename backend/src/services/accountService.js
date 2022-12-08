@@ -12,6 +12,11 @@ const findAccountByUserId = async (userId) => {
   return account;
 };
 
+const findAccountByAccountNumber = async (accountNumber) => {
+  const account = await Account.findOne({ where: { accountNumber } });
+  return account;
+};
+
 const createAccount = async (amount, userId, transaction) => {
   const accountNumber = numberGenerator();
   const account = { accountNumber, amount, userId };
@@ -42,7 +47,7 @@ const withdraw = async (userId, value) => {
     const accountByUserId = await findAccountByUserId(userId);
     const amount = Number(accountByUserId.dataValues.amount) - value;
     if (amount < 0) {
-      return { error: true, message: 'User already exists!', status: StatusCodes.CONFLICT };
+      return { error: true, message: 'Amount can not be negative!', status: StatusCodes.CONFLICT };
     }
 
     await Account.update({ amount }, { where: { userId } });
@@ -51,8 +56,35 @@ const withdraw = async (userId, value) => {
     return account;
   } catch (err) {
     await transaction.rollback();
-    return { error: true, message: 'Error when trying to deposit!', status: StatusCodes.BAD_REQUEST };
+    return { error: true, message: 'Error when trying to withdraw!', status: StatusCodes.BAD_REQUEST };
   }
 };
 
-module.exports = { createAccount, findAllAccounts, findAccountByUserId, deposit, withdraw };
+const transfer = async (userId, value, accountNumber) => {
+  const transaction = await sequelize.transaction();
+
+  try {
+    const accountByUserId = await findAccountByUserId(userId);
+    const currentAccountAmount = Number(accountByUserId.dataValues.amount) - value;
+    if (currentAccountAmount < 0) {
+      return { error: true, message: 'Not enough cash, Stranger!', status: StatusCodes.CONFLICT };
+    }
+
+    const receiverAccount = await findAccountByAccountNumber(accountNumber);
+    const receiverAmount = Number(receiverAccount.amount) + value;
+
+    await Account.update({ amount: currentAccountAmount }, { where: { userId } });
+    await Account.update({ amount: receiverAmount }, { where: { accountNumber } });
+
+    await transaction.commit();
+    const account = await findAccountByUserId(userId);
+    return account;
+  } catch (err) {
+    await transaction.rollback();
+    return { error: true, message: 'Error when trying to transfer!', status: StatusCodes.BAD_REQUEST };
+  }
+};
+
+module.exports = {
+  createAccount, findAllAccounts, findAccountByUserId, deposit, withdraw, transfer,
+};

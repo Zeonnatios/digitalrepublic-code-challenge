@@ -57,4 +57,16 @@ const withdraw = async (req, res, next) => {
   }
 };
 
-module.exports = { createAccount, getAllAccounts, getAccountById, deposit, withdraw };
+const transfer = async (req, res, next) => {
+  try {
+    const { id: userId } = req.authenticatedUser;
+    const { accountNumber } = req.params;
+    const { amount } = req.body;
+    const data = await service.transfer(userId, amount, Number(accountNumber));
+    if (data.error) return next(data);
+    return res.status(StatusCodes.OK).json({ account: data, message: 'Transfer operation completed successfully!' });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+  }
+};
+module.exports = { createAccount, getAllAccounts, getAccountById, deposit, withdraw, transfer };
