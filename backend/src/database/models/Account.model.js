@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     'Account',
     {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-      numberAccount: DataTypes.INTEGER,
+      accountNumber: DataTypes.INTEGER,
       amount: DataTypes.DECIMAL(9, 2),
       userId: DataTypes.INTEGER,
     },

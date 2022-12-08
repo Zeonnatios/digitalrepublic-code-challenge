@@ -7,10 +7,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      numberAccount: {
+      accountNumber: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        field: 'number_account',
+        field: 'account_number',
       },
       amount: {
         type: Sequelize.DECIMAL(9, 2),

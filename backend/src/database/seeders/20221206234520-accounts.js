@@ -6,12 +6,12 @@ module.exports = {
       "accounts",
       [
         {
-          number_account: 11111,
+          account_number: 11111,
           amount: 11000.00,
           user_id: 1
         },
         {
-          number_account: 22222,
+          account_number: 22222,
           amount: 22000.00,
           user_id: 2
         },
