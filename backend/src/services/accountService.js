@@ -7,6 +7,11 @@ const findAllAccounts = async () => {
   return accounts;
 };
 
+const findAccountByUserId = async (userId) => {
+  const account = await Account.findOne({ where: { userId } });
+  return account;
+};
+
 const createAccount = async (amount, userId, transaction) => {
   const accountNumber = numberGenerator();
   const account = { accountNumber, amount, userId };
@@ -15,12 +20,4 @@ const createAccount = async (amount, userId, transaction) => {
   return accountCreated;
 };
 
-const withdraw = async (userId, amount) => {
-
-};
-
-const deposit = async (userId, amount) => {
-
-};
-
-module.exports = { createAccount, findAllAccounts };
+module.exports = { createAccount, findAllAccounts, findAccountByUserId };

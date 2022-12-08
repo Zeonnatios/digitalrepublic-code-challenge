@@ -68,7 +68,7 @@ const registerAuthenticator = async (name, cpf, email, password) => {
     const payload = await getUserById(userId);
     const token = await generateToken(payload.dataValues);
     return token;
-  } catch (error) {
+  } catch (err) {
     await transaction.rollback();
     return { error: true, message: 'Error when trying to register user!', status: StatusCodes.INTERNAL_SERVER_ERROR };
   }

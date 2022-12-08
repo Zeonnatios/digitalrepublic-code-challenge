@@ -23,4 +23,14 @@ const getAllAccounts = async (req, res) => {
   }
 };
 
-module.exports = { createAccount, getAllAccounts };
+const getAccountById = async (req, res) => {
+  try {
+    const { id: userId } = req.authenticatedUser;
+    const account = await service.findAccountByUserId(userId);
+    return res.status(StatusCodes.OK).json({ account });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+  }
+};
+
+module.exports = { createAccount, getAllAccounts, getAccountById };
