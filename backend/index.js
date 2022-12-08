@@ -10,9 +10,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const { userRoute } = require('./src/routes');
+const { userRoute, accountRoute } = require('./src/routes');
 
-app.use('/', [userRoute]);
+app.use('/', [userRoute, accountRoute]);
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));

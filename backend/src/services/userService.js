@@ -1,7 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-
 const md5 = require('md5');
-
 const { User } = require('../database/models');
 const generateToken = require('../helpers/generateToken');
 
