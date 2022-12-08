@@ -1,4 +1,6 @@
+const { validateToken } = require('./tokenValidation');
 const { loginValidation } = require('./loginValidation');
 const { registerValidation } = require('./registerValidation');
+const { accountValidation } = require('./accountValidation');
 
-module.exports = { loginValidation, registerValidation };
+module.exports = { validateToken, loginValidation, registerValidation, accountValidation };

@@ -15,12 +15,12 @@ module.exports = {
       amount: {
         type: Sequelize.DECIMAL(9, 2),
         allowNull: false,
-        unique: true,
       },
       userId: {
         type: Sequelize.INTEGER,
         field: 'user_id',
         allowNull: false,
+        unique: true,
         references: {
           model: 'users',
           key: 'id',
