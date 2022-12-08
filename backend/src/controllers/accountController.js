@@ -14,4 +14,13 @@ const createAccount = async (req, res, next) => {
   }
 };
 
-module.exports = { createAccount };
+const getAllAccounts = async (req, res) => {
+  try {
+    const accounts = await service.findAllAccounts();
+    return res.status(StatusCodes.OK).json({ accounts });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+  }
+};
+
+module.exports = { createAccount, getAllAccounts };
