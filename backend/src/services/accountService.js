@@ -18,7 +18,7 @@ const findAccountByAccountNumber = async (accountNumber) => {
 };
 
 const createAccount = async (amount, userId, transaction) => {
-  const accountNumber = numberGenerator();
+  const accountNumber = await numberGenerator();
   const account = { accountNumber, amount, userId };
   const accountCreated = await Account.create(account, transaction);
 

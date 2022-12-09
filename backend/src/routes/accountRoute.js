@@ -5,7 +5,6 @@ const { getAllAccounts, getAccountById, deposit, withdraw,
 
 router.use(validateToken);
 
-// router.post('/user/account/', [accountValidation, createAccount]);
 router.get('/accounts', [getAllAccounts]);
 router.get('/account/:id', [getAccountById]);
 router.patch('/account/deposit/', [accountValidation, deposit]);
