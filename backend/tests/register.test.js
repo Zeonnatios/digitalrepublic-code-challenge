@@ -148,7 +148,7 @@ describe('GET user/register', () => {
     });
   });
 
-  describe('Ao se registrar passando os campos corretamente', () => {
+  describe.only('Ao se registrar passando os campos corretamente', () => {
     it('Deve retornar um token', async () => {
       const res = await request(app)
         .post('/user/register')
@@ -161,6 +161,26 @@ describe('GET user/register', () => {
 
       expect(res.status).toBe(201);
       expect(res.body.token).not.toBeNull();
+    });
+
+    describe('Ao tentar registrar um usuário já existente', () => {
+      beforeEach(() => {
+        shell.exec('npx sequelize-cli db:seed:all');
+      });
+
+      it('Deve retornar uma mensagem de erro de usuário já existente', async () => {
+        const res = await request(app)
+          .post('/user/register')
+          .send({
+            name: 'Matheus',
+            cpf: '11122233310',
+            email: 'matheusantonio@email.com',
+            password: '12345678',
+          });
+
+        expect(res.status).toBe(409);
+        expect(res.body).toEqual({ message: 'User already exists!' });
+      });
     });
   });
 });
