@@ -4,8 +4,33 @@ const shell = require('shelljs');
 const request = require('supertest');
 const { app } = require('../server');
 
-const users = { users: [{ id: 1, name: 'Matheus Antonio', cpf: '11122233310', email: 'matheusantonio@email.com' },
-  { id: 2, name: 'Boris Williams', cpf: '11122233311', email: 'boriswilliams@email.com' }] };
+const users = {
+  users: [
+    {
+      id: 1,
+      name: 'Matheus Antonio',
+      cpf: '11122233310',
+      email: 'matheusantonio@email.com',
+      account: {
+        id: 1,
+        accountNumber: 11111,
+        amount: '11000.00',
+        userId: 1,
+      },
+    },
+    {
+      id: 2,
+      name: 'Boris Williams',
+      cpf: '11122233311',
+      email: 'boriswilliams@email.com',
+      account: {
+        id: 2,
+        accountNumber: 22222,
+        amount: '22000.00',
+        userId: 2,
+      },
+    },
+  ] };
 
 describe('GET /users', () => {
   beforeEach(() => {

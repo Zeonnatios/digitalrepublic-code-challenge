@@ -5,7 +5,12 @@ const generateToken = require('../helpers/generateToken');
 const { createAccount } = require('./accountService');
 
 const findAllUsers = async () => {
-  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  const users = await User.findAll(
+    { include: [
+      { model: Account, as: 'account' },
+    ],
+    attributes: { exclude: ['password'] } },
+  );
   return users;
 };
 
