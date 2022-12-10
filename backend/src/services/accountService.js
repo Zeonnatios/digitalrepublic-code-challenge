@@ -47,7 +47,7 @@ const withdraw = async (userId, value) => {
     const accountByUserId = await findAccountByUserId(userId);
     const amount = Number(accountByUserId.dataValues.amount) - value;
     if (amount < 0) {
-      return { error: true, message: 'Amount can not be negative!', status: StatusCodes.CONFLICT };
+      return { error: true, message: 'Your amount can not be negative!', status: StatusCodes.CONFLICT };
     }
 
     await Account.update({ amount }, { where: { userId } });
