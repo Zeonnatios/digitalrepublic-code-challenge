@@ -15,6 +15,11 @@ module.exports = {
           amount: 22000.00,
           user_id: 2
         },
+        {
+          account_number: 33333,
+          amount: 500.00,
+          user_id: 3
+        },
       ],
       {}
     ),

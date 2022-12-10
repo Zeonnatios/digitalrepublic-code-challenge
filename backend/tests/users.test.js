@@ -11,26 +11,24 @@ const users = {
       name: 'Matheus Antonio',
       cpf: '11122233310',
       email: 'matheusantonio@email.com',
-      account: {
-        id: 1,
-        accountNumber: 11111,
-        amount: '11000.00',
-        userId: 1,
-      },
+      account: { id: 1, accountNumber: 11111, amount: '11000.00', userId: 1 },
     },
     {
       id: 2,
       name: 'Boris Williams',
       cpf: '11122233311',
       email: 'boriswilliams@email.com',
-      account: {
-        id: 2,
-        accountNumber: 22222,
-        amount: '22000.00',
-        userId: 2,
-      },
+      account: { id: 2, accountNumber: 22222, amount: '22000.00', userId: 2 },
     },
-  ] };
+    {
+      id: 3,
+      name: 'Stranger',
+      cpf: '11122233312',
+      email: 'stranger@email.com',
+      account: { id: 3, accountNumber: 33333, amount: '500.00', userId: 3 },
+    },
+  ],
+};
 
 describe('Testando rota /users', () => {
   beforeEach(() => {
@@ -47,7 +45,7 @@ describe('Testando rota /users', () => {
       const res = await request(app).get('/users');
       expect(res.status).toBe(200);
       expect(res.body).toEqual(users);
-      expect(res.body.users).toHaveLength(2);
+      expect(res.body.users).toHaveLength(3);
     });
   });
 

@@ -18,6 +18,12 @@ module.exports = {
           email: "boriswilliams@email.com",
           password: "25d55ad283aa400af464c76d713c07ad"
         },
+        {
+          name: "Stranger",
+          cpf: "11122233312",
+          email: "stranger@email.com",
+          password: "25d55ad283aa400af464c76d713c07ad"
+        },
       ],
       {}
     ),
