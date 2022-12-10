@@ -129,6 +129,9 @@ npm run test
 npm run test-coverage
 ```
 
+<img src="assets/total_coverage.png" />
+<img src="assets/coverage_and_tests.png" />
+
 ## Desenvolvido por
 
 <div align="left">
