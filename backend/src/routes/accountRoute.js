@@ -6,7 +6,7 @@ const { getAllAccounts, getAccountById, deposit, withdraw,
 router.use(validateToken);
 
 router.get('/accounts', [getAllAccounts]);
-router.get('/account/:id', [getAccountById]);
+router.get('/account/', [getAccountById]);
 router.patch('/account/deposit/', [accountValidation, deposit]);
 router.patch('/account/withdraw/', [accountValidation, withdraw]);
 router.patch('/account/transfer/:accountNumber', [transferValidation, transfer]);
