@@ -15,12 +15,33 @@ describe('Testando rota /accounts', () => {
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate');
   });
 
+  describe('Validar não ser possível listar as contas por:', () => {
+    it('Header da requisição sem o token (Authorization)', async () => {
+      const res = await request(app).get('/accounts');
+      expect(res.status).toBe(401);
+      expect(res.body).toEqual({ message: 'Token not found!' });
+    });
+
+    it('Token invalido ou expirado', async () => {
+      const login = await request(app)
+        .post('/login')
+        .send({ email: 'boriswilliams@email.com', password: '12345678' });
+      expect(login.body.token).not.toBeNull();
+      const { body: { token } } = login;
+      const res = await request(app)
+        .get('/accounts')
+        .set('Authorization', `${token}F`);
+      expect(res.status).toBe(401);
+      expect(res.body).toEqual({ message: 'Expired or invalid token!' });
+    });
+  });
+
   describe('Quando o banco de dados está populado', () => {
     beforeEach(() => {
       shell.exec('npx sequelize-cli db:seed:all');
     });
 
-    it.only('Deve retornar todos as contas', async () => {
+    it('Deve retornar todos as contas', async () => {
       const login = await request(app)
         .post('/login')
         .send({ email: 'boriswilliams@email.com', password: '12345678' });
