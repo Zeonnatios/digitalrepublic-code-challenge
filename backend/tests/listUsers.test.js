@@ -32,7 +32,7 @@ const users = {
     },
   ] };
 
-describe('GET /users', () => {
+describe('Testando rota /users', () => {
   beforeEach(() => {
     shell.exec('npx sequelize-cli db:drop');
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate');

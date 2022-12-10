@@ -4,7 +4,7 @@ const shell = require('shelljs');
 const request = require('supertest');
 const { app } = require('../server');
 
-describe('GET user/register', () => {
+describe('Testando rota user/register', () => {
   beforeEach(() => {
     shell.exec('npx sequelize-cli db:drop');
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate');
@@ -148,7 +148,7 @@ describe('GET user/register', () => {
     });
   });
 
-  describe.only('Ao se registrar passando os campos corretamente', () => {
+  describe('Ao se registrar passando os campos corretamente', () => {
     it('Deve retornar um token', async () => {
       const res = await request(app)
         .post('/user/register')
