@@ -122,4 +122,18 @@ describe('Testando rota /login/', () => {
       expect(res.body).toEqual({ message: 'Email or password incorrect!' });
     });
   });
+
+  describe('Logando com os dados corretos', () => {
+    beforeEach(() => {
+      shell.exec('npx sequelize-cli db:seed:all');
+    });
+    it('Deve retornar um token', async () => {
+      const res = await request(app)
+        .post('/login')
+        .send({ email: 'matheusantonio@email.com', password: '12345678' });
+
+      expect(res.status).toBe(200);
+      expect(res.body.token).not.toBeNull();
+    });
+  });
 });
