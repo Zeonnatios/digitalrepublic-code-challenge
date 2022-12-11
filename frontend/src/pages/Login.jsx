@@ -55,7 +55,11 @@ function Login() {
 
     <main id="main" className="container my-5">
 
-      <div id="error">{loginError}</div>
+      {loginError !== '' && (
+      <div className="alert alert-danger" id="login-error-message" role="alert">
+        {loginError}
+      </div>
+      )}
 
       <section>
         <form>

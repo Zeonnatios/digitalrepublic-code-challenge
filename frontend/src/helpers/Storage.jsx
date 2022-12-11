@@ -12,7 +12,8 @@ export const userStorage = (response) => {
   const userStor = {
     name: user.name,
     email: user.email,
-    role: user.role,
+    cpf: user.cpf,
+    account: user.account,
     token,
   };
   return userStor;
