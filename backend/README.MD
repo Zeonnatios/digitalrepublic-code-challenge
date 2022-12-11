@@ -109,42 +109,86 @@ MYSQL_DB_NAME=bank-account-management
 JWT_SECRET=secret_key
 ```
 
+> Por padrão o Backend estará rodando na porta 3000
 
-### Instale as dependências com o npm
 
+### Instale as dependências com o npm ou com o yarn
 ```bash
   npm install
+  
+  yarn install
 ```
 
 ### Execute o comando para rodar os scripts do Sequelize, para criar o banco e migrations:
 ```bash
- npm run db:reset
+  npm run db:reset
+
+  yarn run db:reset
 ```
 
 ### Execute a aplicação:
 ```bash
- npm start
+  npm start
+
+  yarn start
 ```
 
-### Ou execute a aplicação em modo desenvolvedor
+### Também pode executar a aplicação em modo desenvolvedor
 ```bash
-npm run dev
+  npm run dev
+
+  yarn dev
 ```
 
-### O servidor inciará na porta:3000 - acesse <http://localhost:3000/>
+> O servidor inciará na porta:3000 por padrão
+
+
+## Instalando e Rodando o a aplicação React JS
+
+### Caso esteja na pasta raiz do projeto, entre na pasta backend pelo terminal com:
+
+> cd frontend/
+
+> Pelo padrão da porta backend funcionar na 3000, todos os endpoints estão estáticos, fazendo requisições pelo link localhost:3000/
+
+> Para que a aplicação funcione corretamente, é necessário ter dado start no container do docker com mysql, executado o script yarn run db:rest e yarn dev ou yarn start, no projeto backend. Para o banco de dados e a API estarem operacionais.
+
+### Instale as dependências com o npm ou com o yarn
+```bash
+  npm install
+  
+  yarn install
+```
+
+### Execute a aplicação:
+```bash
+  npm start
+
+  yarn start
+```
+
+> A página inciará na porta:5173 pelo padrão do Vite
+
 
 ## Testando a Aplicação Node.js
 
 ### Para rodar os testes da aplicação, execute:
 ```bash
-npm run test
-```
-### E para executar os testes, e visualizar os detalhes de cobertura, execute:
-```bash
-npm run test-coverage
+  npm run test
+
+  yarn test
 ```
 
-### Endpoints
+### E para executar os testes, e visualizar os detalhes de cobertura, execute:
+```bash
+  npm run test-coverage
+
+  yarn test-coverage
+```
+<img src="./images/total_coverage.png" />
+<img src="./images/coverage_and_tests.png" />
+
+## Endpoints
 This API has the following endpoints:
 
 | Method | Description |
@@ -158,8 +202,26 @@ This API has the following endpoints:
 | `PATCH - localhost:3000/account/withdraw/` | Realiza um saque da própria conta, e retorna os dados da conta. |
 | `PATCH - localhost:3000/account/transfer:accountNumber/` | Realiza uma transferência de sua conta para outra, e retorna os dados da transferência. |
 
-<img src="assets/total_coverage.png" />
-<img src="assets/coverage_and_tests.png" />
+
+## Páginas
+### Página de Login
+<img src="./images/LoginPage.png" />
+
+### Página de Cadastro
+<img src="./images/RegisterPage.png" />
+
+### Página de Perfil
+<img src="./images/ProfilePage.png" />
+
+### Página de Depósito
+<img src="./images/DepositPage.png" />
+
+### Página de Saque
+<img src="./images/WithdrawPage.png" />
+
+### Página de Transferência
+<img src="./images/TransferPage.png" />
+
 
 ## Desenvolvido por
 

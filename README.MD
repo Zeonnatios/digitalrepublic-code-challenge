@@ -32,6 +32,8 @@ Seu software segue padrões de separação de camadas por responsabilidade? Os m
 
 <h2>:rocket: Tecnologias</h2>
 
+- [Vite](https://vitejs.dev/)
+- [React](https://pt-br.reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
 - [jsonwebtoken](https://jwt.io/libraries)
@@ -40,6 +42,7 @@ Seu software segue padrões de separação de camadas por responsabilidade? Os m
 - [Supertest](https://github.com/ladjs/supertest)
 - [Sequelize](https://sequelize.org/)
 - [mysql2](https://www.npmjs.com/package/mysql2)
+- [Axios](https://axios-http.com/ptbr/docs/intro)
 
 
 <h2>:hammer_and_wrench: Features</h2>
@@ -94,43 +97,131 @@ Após o container ter sido criado, rode o comando abaixo para dar start no conta
 - Alterar os dados de conexão do banco MySQL. 
 - De preferência que a senha MYSQL_ROOT_PASSWORD seja a mesma que o comando utilizado para criar o container.
 
+> Exemplo
 
-### Instale as dependências com o npm
+```
+PORT=3000
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWORD=12345678
+MYSQL_DB_NAME=bank-account-management
+JWT_SECRET=secret_key
+```
 
+> Por padrão o Backend estará rodando na porta 3000
+
+
+### Instale as dependências com o npm ou com o yarn
 ```bash
   npm install
+  
+  yarn install
 ```
 
 ### Execute o comando para rodar os scripts do Sequelize, para criar o banco e migrations:
 ```bash
- npm run db:reset
+  npm run db:reset
+
+  yarn run db:reset
 ```
 
 ### Execute a aplicação:
 ```bash
- npm start
+  npm start
+
+  yarn start
 ```
 
-### Ou execute a aplicação em modo desenvolvedor
+### Também pode executar a aplicação em modo desenvolvedor
 ```bash
-npm run dev
+  npm run dev
+
+  yarn dev
 ```
 
-### O servidor inciará na porta:3000 - acesse <http://localhost:3000/>
+> O servidor inciará na porta:3000 por padrão
+
+
+## Instalando e Rodando o a aplicação React JS
+
+### Caso esteja na pasta raiz do projeto, entre na pasta backend pelo terminal com:
+
+> cd frontend/
+
+> Pelo padrão da porta backend funcionar na 3000, todos os endpoints estão estáticos, fazendo requisições pelo link localhost:3000/
+
+> Para que a aplicação funcione corretamente, é necessário ter dado start no container do docker com mysql, executado o script yarn run db:rest e yarn dev ou yarn start, no projeto backend. Para o banco de dados e a API estarem operacionais.
+
+### Instale as dependências com o npm ou com o yarn
+```bash
+  npm install
+  
+  yarn install
+```
+
+### Execute a aplicação:
+```bash
+  npm start
+
+  yarn start
+```
+
+> A página inciará na porta:5173 pelo padrão do Vite
+
 
 ## Testando a Aplicação Node.js
 
 ### Para rodar os testes da aplicação, execute:
 ```bash
-npm run test
-```
-### E para executar os testes, e visualizar os detalhes de cobertura, execute:
-```bash
-npm run test-coverage
+  npm run test
+
+  yarn test
 ```
 
-<img src="assets/total_coverage.png" />
-<img src="assets/coverage_and_tests.png" />
+### E para executar os testes, e visualizar os detalhes de cobertura, execute:
+```bash
+  npm run test-coverage
+
+  yarn test-coverage
+```
+<img src="./images/total_coverage.png" />
+<img src="./images/coverage_and_tests.png" />
+
+## Endpoints
+This API has the following endpoints:
+
+| Method | Description |
+|---|---|
+| `GET - localhost:3000/users` | Retorna todos os usuários no banco de dados. |
+| `GET - localhost:3000/accounts/` | Retorna todas as contas bancárias no banco de dados. |
+| `GET - localhost:3000/account/:id` | Busca uma conta pelo Id. |
+| `POST - localhost:3000/user/register` | Cria um usuário e conta bancária vinculada, e retorna um token. |
+| `POST - localhost:3000/login` | Retorna um token ao passar email e senha. |
+| `PATCH - localhost:3000/account/deposit/` | Realiza um depósito na própria conta, e retorna os dados da conta. |
+| `PATCH - localhost:3000/account/withdraw/` | Realiza um saque da própria conta, e retorna os dados da conta. |
+| `PATCH - localhost:3000/account/transfer:accountNumber/` | Realiza uma transferência de sua conta para outra, e retorna os dados da transferência. |
+
+
+## Páginas
+### Página de Login
+<img src="./images/LoginPage.png" />
+
+### Página de Cadastro
+<img src="./images/RegisterPage.png" />
+
+### Página de Perfil
+<img src="./images/ProfilePage.png" />
+
+### Página de Depósito
+<img src="./images/DepositPage.png" />
+
+### Página de Saque
+<img src="./images/WithdrawPage.png" />
+
+### Página de Transferência
+<img src="./images/TransferPage.png" />
+
 
 ## Desenvolvido por
 
