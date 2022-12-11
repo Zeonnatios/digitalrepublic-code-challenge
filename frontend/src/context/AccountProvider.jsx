@@ -1,21 +1,38 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import AccountContext from './AccountContext';
+/* eslint-disable react/jsx-no-constructed-context-values */
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import AccountContext from './AccountContext';
 
-// function AccountProvider({ children }) {
-//   // const [accountsData, setAccountsData] = useState([]);
+function AccountProvider({ children }) {
+  // const [accountsData, setAccountsData] = useState([]);
 
-//   const context = {};
+  const navigate = useNavigate();
 
-//   return (
-//     <AccountContext.Provider value={context}>
-//       { children }
-//     </AccountContext.Provider>
-//   );
-// }
+  const signOut = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('total');
+    localStorage.removeItem('sellers');
+    navigate('/login');
+  };
 
-// AccountProvider.propTypes = {
-//   children: PropTypes.node.isRequired,
-// };
+  const states = {
+    signOut,
+  };
 
-// export default AccountProvider;
+  return (
+    <AccountContext.Provider value={states}>
+      { children }
+    </AccountContext.Provider>
+  );
+}
+
+AccountProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
+
+export default AccountProvider;
