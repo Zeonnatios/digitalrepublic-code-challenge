@@ -50,7 +50,8 @@ const loginAuthenticator = async (email, password) => {
 
   const payload = await getUserById(user.id);
   const token = await generateToken(payload.dataValues);
-  return token;
+  const data = { token, user: payload };
+  return data;
 };
 
 const registerAuthenticator = async (name, cpf, email, password) => {
@@ -72,7 +73,8 @@ const registerAuthenticator = async (name, cpf, email, password) => {
     await transaction.commit();
     const payload = await getUserById(userId);
     const token = await generateToken(payload.dataValues);
-    return token;
+    const data = { token, user: payload };
+    return data;
   } catch (err) {
     await transaction.rollback();
     return { error: true, message: 'Error when trying to register user!', status: StatusCodes.BAD_REQUEST };
