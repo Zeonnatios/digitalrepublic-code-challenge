@@ -15,7 +15,7 @@ const accounts = {
 const borisAccount = { account: { id: 2, accountNumber: 22222, amount: '22000.00', userId: 2 } };
 
 const borisDeposit = {
-  data: { id: 2, accountNumber: 22222, amount: '23000.00', userId: 2 },
+  account: { id: 2, accountNumber: 22222, amount: '23000.00', userId: 2 },
   message: 'Deposit operation completed successfully!' };
 
 const borisWithdraw = {
