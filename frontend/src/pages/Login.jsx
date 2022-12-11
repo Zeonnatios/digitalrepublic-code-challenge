@@ -101,7 +101,7 @@ function Login() {
           </div>
 
           <button
-            className="w-100 btn btn-lg btn-outline-success my-3"
+            className="w-100 btn btn-lg btn-success my-3"
             type="button"
             data-testid="login-submit-btn"
             disabled={btnDisable}
