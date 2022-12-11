@@ -3,7 +3,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import { getStorage, setStorage } from '../helpers/Storage';
 
-function Profile() {
+function Deposit() {
   const [amountDeposit, setAmountDeposit] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -58,7 +58,7 @@ function Profile() {
       <main id="main" className="container my-5">
         <section>
           <form>
-            <h1 className="h1" id="title">Valor a depositar</h1>
+            <h1 className="h1" id="title">Valor a Depositar</h1>
 
             <div className="form-group row">
               <label id="labelAmount" htmlFor="valor" className="col-lg-12col-form-label">
@@ -96,4 +96,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Deposit;

@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Deposit from './pages/Deposit';
+import Withdraw from './pages/Withdraw';
+import Transfer from './pages/Transfer';
 
 function Router() {
   return (
@@ -13,8 +15,8 @@ function Router() {
       <Route path="/register" element={<Register />} />
       <Route path="/account/profile" element={<Profile />} />
       <Route path="/account/deposit" element={<Deposit />} />
-      <Route path="/account/deposit" element={<Deposit />} />
-      <Route path="/account/deposit" element={<Deposit />} />
+      <Route path="/account/withdraw" element={<Withdraw />} />
+      <Route path="/account/transfer/:accountNumber" element={<Transfer />} />
     </Routes>
   );
 }
