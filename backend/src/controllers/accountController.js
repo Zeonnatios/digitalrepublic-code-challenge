@@ -39,7 +39,7 @@ const deposit = async (req, res, next) => {
     const { amount } = req.body;
     const data = await service.deposit(userId, amount);
     if (data.error) return next(data);
-    return res.status(StatusCodes.OK).json({ data, message: 'Deposit operation completed successfully!' });
+    return res.status(StatusCodes.OK).json({ account: data, message: 'Deposit operation completed successfully!' });
   } catch (err) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
   }
