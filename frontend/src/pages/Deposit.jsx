@@ -10,7 +10,6 @@ function Deposit() {
 
   const depositInAccount = async () => {
     const user = getStorage('user');
-    console.log(amountDeposit);
     await axios({
       method: 'patch',
       url: 'http://localhost:3000/account/deposit',

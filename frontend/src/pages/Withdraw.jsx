@@ -4,20 +4,19 @@ import Header from './components/Header';
 import { getStorage, setStorage } from '../helpers/Storage';
 
 function Withdraw() {
-  const [amountDeposit, setAmountDeposit] = useState(0);
+  const [amountWithdraw, setAmountWithdraw] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const depositInAccount = async () => {
+  const withdrawInAccount = async () => {
     const user = getStorage('user');
-    console.log(amountDeposit);
     await axios({
       method: 'patch',
       url: 'http://localhost:3000/account/withdraw',
       headers: {
         authorization: user.token,
       },
-      data: { amount: Number(amountDeposit) },
+      data: { amount: Number(amountWithdraw) },
     })
       .then(({ data }) => {
         const storage = getStorage('user');
@@ -25,17 +24,17 @@ function Withdraw() {
         setStorage('user', storage);
         setSuccessMessage(data.message);
         setErrorMessage('');
-        setAmountDeposit(0);
+        setAmountWithdraw(0);
       })
       .catch(({ response }) => {
         setErrorMessage(response.data.message);
         setSuccessMessage('');
-        setAmountDeposit(0);
+        setAmountWithdraw(0);
       });
   };
 
   const handleChange = (event) => {
-    setAmountDeposit(event.target.value);
+    setAmountWithdraw(event.target.value);
   };
 
   return (
@@ -72,7 +71,7 @@ function Withdraw() {
                     name="amount"
                     id="amount"
                     onChange={handleChange}
-                    value={amountDeposit}
+                    value={amountWithdraw}
                   />
                 </div>
               </label>
@@ -82,7 +81,7 @@ function Withdraw() {
               className="w-100 btn btn-lg btn-outline-success my-3"
               type="button"
               data-testid="login-submit-btn"
-              onClick={() => depositInAccount()}
+              onClick={() => withdrawInAccount()}
             >
               Sacar
             </button>

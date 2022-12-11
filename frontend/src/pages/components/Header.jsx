@@ -25,9 +25,6 @@ function Header() {
               <Link className="nav-link link-warning" to="/account/withdraw">Saque</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link link-warning" to="/account/transfer">Transferência</Link>
-            </li>
-            <li className="nav-item">
               <button type="button" className="btn btn-outline-light" onClick={signOut}>Sair</button>
             </li>
           </ul>
