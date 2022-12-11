@@ -43,7 +43,7 @@ function Login() {
       .then((response) => {
         if (response) {
           setStorage('user', userStorage(response));
-          navigate('/profile');
+          navigate('/account/profile');
         }
       })
       .catch(({ response }) => {
@@ -120,7 +120,7 @@ function Login() {
           </button>
         </form>
 
-        {tokenIsDefined && navigate('/profile')}
+        {tokenIsDefined && navigate('/account/profile')}
       </section>
 
     </main>

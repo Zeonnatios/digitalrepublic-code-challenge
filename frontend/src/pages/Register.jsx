@@ -51,7 +51,7 @@ function Register() {
       .then((response) => {
         if (response) {
           setStorage('user', userStorage(response));
-          navigate('/profile');
+          navigate('/account/profile');
         }
       })
       .catch(({ response }) => {

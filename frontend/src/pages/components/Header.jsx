@@ -16,6 +16,9 @@ function Header() {
               <h2 className="text-light">{user.name}</h2>
             </li>
             <li className="nav-item">
+              <Link className="nav-link link-warning" to="/account/profile">Profile</Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link link-warning" to="/account/deposit">Depósito</Link>
             </li>
             <li className="nav-item">
@@ -38,7 +41,11 @@ function Header() {
               <p className="text-light">
                 Saldo em conta:
                 {' '}
-                <span className="text-warning">{user.account.amount}</span>
+                <span className="text-warning">
+                  {user.account.amount}
+                  {' '}
+                  R$
+                </span>
               </p>
             </li>
             <li className="nav-item px-5">
