@@ -32,6 +32,8 @@ Seu software segue padrões de separação de camadas por responsabilidade? Os m
 
 <h2>:rocket: Tecnologias</h2>
 
+- [Vite](https://vitejs.dev/)
+- [React](https://pt-br.reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
 - [jsonwebtoken](https://jwt.io/libraries)
@@ -40,6 +42,7 @@ Seu software segue padrões de separação de camadas por responsabilidade? Os m
 - [Supertest](https://github.com/ladjs/supertest)
 - [Sequelize](https://sequelize.org/)
 - [mysql2](https://www.npmjs.com/package/mysql2)
+- [Axios](https://axios-http.com/ptbr/docs/intro)
 
 
 <h2>:hammer_and_wrench: Features</h2>
@@ -94,6 +97,18 @@ Após o container ter sido criado, rode o comando abaixo para dar start no conta
 - Alterar os dados de conexão do banco MySQL. 
 - De preferência que a senha MYSQL_ROOT_PASSWORD seja a mesma que o comando utilizado para criar o container.
 
+> Exemplo
+
+```
+PORT=3000
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWORD=12345678
+MYSQL_DB_NAME=bank-account-management
+JWT_SECRET=secret_key
+```
+
 
 ### Instale as dependências com o npm
 
@@ -128,6 +143,20 @@ npm run test
 ```bash
 npm run test-coverage
 ```
+
+### Endpoints
+This API has the following endpoints:
+
+| Method | Description |
+|---|---|
+| `GET - localhost:3000/users` | Retorna todos os usuários no banco de dados. |
+| `GET - localhost:3000/accounts/` | Retorna todas as contas bancárias no banco de dados. |
+| `GET - localhost:3000/account/:id` | Busca uma conta pelo Id. |
+| `POST - localhost:3000/user/register` | Cria um usuário e conta bancária vinculada, e retorna um token. |
+| `POST - localhost:3000/login` | Retorna um token ao passar email e senha. |
+| `PATCH - localhost:3000/account/deposit/` | Realiza um depósito na própria conta, e retorna os dados da conta. |
+| `PATCH - localhost:3000/account/withdraw/` | Realiza um saque da própria conta, e retorna os dados da conta. |
+| `PATCH - localhost:3000/account/transfer:accountNumber/` | Realiza uma transferência de sua conta para outra, e retorna os dados da transferência. |
 
 <img src="assets/total_coverage.png" />
 <img src="assets/coverage_and_tests.png" />
